@@ -1,344 +1,410 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Segel Freiheit – Entdecke die schönsten Segelreviere, die richtige Ausrüstung und praktische Tipps für dein Abenteuer auf dem Wasser.">
-  <title>Segel Freiheit – Freiheit auf dem Wasser</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Segelwind — Freiheit auf dem Wasser</title>
+<meta name="description" content="Entdecke die schönsten Segelreviere, die richtige Ausrüstung und praktische Tipps für dein nächstes Törn-Abenteuer.">
+<style>
+  :root{
+    --navy:#0a2540;
+    --navy-dark:#06182b;
+    --sea:#0e6ba8;
+    --teal:#1b9aaa;
+    --sand:#f4ead5;
+    --white:#ffffff;
+    --text:#22303d;
+    --text-light:#5b6b7a;
+    --radius:14px;
+    --shadow:0 10px 30px rgba(6,24,43,.12);
+    --font:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:72px}
+  body{font-family:var(--font);color:var(--text);line-height:1.65;background:var(--white)}
+
+  /* ===== Navbar ===== */
+  .navbar{
+    position:sticky;top:0;z-index:100;
+    background:rgba(10,37,64,.92);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    box-shadow:0 2px 12px rgba(0,0,0,.18);
+  }
+  .nav-inner{
+    max-width:1100px;margin:0 auto;padding:0 20px;
+    display:flex;align-items:center;justify-content:space-between;height:64px;
+  }
+  .logo{
+    display:flex;align-items:center;gap:10px;
+    color:var(--white);font-weight:700;font-size:1.15rem;text-decoration:none;letter-spacing:.5px;
+  }
+  .logo svg{flex:0 0 auto}
+  .nav-links{list-style:none;display:none;gap:6px}
+  .nav-links a{
+    color:rgba(255,255,255,.85);text-decoration:none;font-size:.95rem;
+    padding:8px 14px;border-radius:8px;transition:background .2s,color .2s;
+  }
+  .nav-links a:hover,.nav-links a:focus-visible{background:rgba(255,255,255,.12);color:#fff}
+  .burger{
+    display:flex;flex-direction:column;justify-content:center;gap:5px;
+    width:44px;height:44px;padding:10px;background:none;border:none;cursor:pointer;
+  }
+  .burger span{
+    display:block;height:2px;width:100%;background:#fff;border-radius:2px;
+    transition:transform .3s,opacity .3s;
+  }
+  .burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .mobile-menu{
+    display:none;flex-direction:column;background:var(--navy-dark);
+    border-top:1px solid rgba(255,255,255,.08);
+  }
+  .mobile-menu.open{display:flex}
+  .mobile-menu a{
+    color:rgba(255,255,255,.9);text-decoration:none;
+    padding:14px 24px;font-size:1rem;border-bottom:1px solid rgba(255,255,255,.06);
+  }
+  .mobile-menu a:hover{background:rgba(255,255,255,.06)}
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative;min-height:92vh;min-height:92svh;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    color:#fff;overflow:hidden;
+    background:
+      linear-gradient(180deg,rgba(6,24,43,.55) 0%,rgba(10,37,64,.72) 55%,rgba(6,24,43,.9) 100%),
+      url("https://images.unsplash.com/photo-1500930287596-c1ecaa373bb2?auto=format&fit=crop&w=1920&q=80") center/cover no-repeat,
+      var(--navy);
+  }
+  .hero-content{max-width:760px;padding:80px 24px;animation:fadeUp .9s ease both}
+  .hero-kicker{
+    display:inline-block;font-size:.85rem;letter-spacing:3px;text-transform:uppercase;
+    color:var(--sand);margin-bottom:18px;font-weight:600;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem,6.5vw,4.2rem);line-height:1.1;font-weight:800;
+    text-shadow:0 4px 24px rgba(0,0,0,.35);margin-bottom:20px;
+  }
+  .hero p{
+    font-size:clamp(1.05rem,2.4vw,1.3rem);color:rgba(255,255,255,.88);
+    max-width:600px;margin:0 auto 34px;
+  }
+  .btn{
+    display:inline-block;padding:15px 38px;border-radius:50px;
+    font-weight:700;font-size:1rem;text-decoration:none;letter-spacing:.4px;
+    transition:transform .25s,box-shadow .25s,background .25s;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg,var(--teal),var(--sea));color:#fff;
+    box-shadow:0 8px 24px rgba(27,154,170,.4);
+  }
+  .btn-primary:hover,.btn-primary:focus-visible{
+    transform:translateY(-3px);
+    box-shadow:0 14px 32px rgba(27,154,170,.5);
+  }
+  .hero-wave{position:absolute;bottom:-1px;left:0;width:100%;line-height:0}
+  .hero-wave svg{width:100%;height:70px;display:block}
+
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(28px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+
+  /* ===== Sektionen ===== */
+  section{padding:72px 20px}
+  .container{max-width:1100px;margin:0 auto}
+  .section-head{text-align:center;margin-bottom:48px}
+  .section-head h2{
+    font-size:clamp(1.7rem,4vw,2.4rem);color:var(--navy);font-weight:800;margin-bottom:12px;
+  }
+  .section-head p{color:var(--text-light);max-width:560px;margin:0 auto;font-size:1.05rem}
+  .cards{display:grid;grid-template-columns:1fr;gap:24px}
+  .card{
+    background:#fff;border:1px solid #e8eef3;border-radius:var(--radius);
+    padding:32px 28px;box-shadow:var(--shadow);
+    transition:transform .3s,box-shadow .3s;
+  }
+  .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(6,24,43,.16)}
+  .card-icon{
+    width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,rgba(27,154,170,.14),rgba(14,107,168,.14));
+    margin-bottom:20px;
+  }
+  .card h3{font-size:1.25rem;color:var(--navy);margin-bottom:10px}
+  .card p{color:var(--text-light);font-size:.98rem}
+  .card .tag{
+    display:inline-block;margin-top:16px;font-size:.78rem;font-weight:700;
+    letter-spacing:1px;text-transform:uppercase;color:var(--sea);
+  }
+  section.alt{background:linear-gradient(180deg,#f6f9fb 0%,#eef4f8 100%)}
+
+  /* ===== CTA ===== */
+  .cta{
+    background:
+      linear-gradient(135deg,rgba(6,24,43,.92),rgba(10,37,64,.85)),
+      url("https://images.unsplash.com/photo-1471922694854-ff1b63b20054?auto=format&fit=crop&w=1920&q=80") center/cover no-repeat;
+    color:#fff;text-align:center;padding:96px 20px;
+  }
+  .cta h2{font-size:clamp(1.8rem,4.5vw,2.6rem);font-weight:800;margin-bottom:16px}
+  .cta p{color:rgba(255,255,255,.85);max-width:520px;margin:0 auto 36px;font-size:1.08rem}
+  .btn-outline{
+    background:transparent;color:#fff;border:2px solid rgba(255,255,255,.9);
+  }
+  .btn-outline:hover,.btn-outline:focus-visible{
+    background:#fff;color:var(--navy);transform:translateY(-3px);
+    box-shadow:0 12px 28px rgba(0,0,0,.3);
+  }
+
+  footer{
+    background:var(--navy-dark);color:rgba(255,255,255,.6);
+    text-align:center;padding:28px 20px;font-size:.9rem;
+  }
+
+  /* ===== Media Queries ===== */
+  @media (min-width:600px){
+    .cards{grid-template-columns:repeat(2,1fr)}
+    .hero-wave svg{height:100px}
+  }
+  @media (min-width:900px){
+    .nav-links{display:flex}
+    .burger{display:none}
+    .cards{grid-template-columns:repeat(3,1fr)}
+    section{padding:96px 20px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .card:hover,.btn:hover{transform:none}
+  }
+</style>
 </head>
 <body>
 
-  <!-- ============ NAVIGATION ============ -->
-  <header class="site-header" id="site-header">
-    <nav class="nav container" aria-label="Hauptnavigation">
-      <a href="#start" class="nav__logo" aria-label="Segel Freiheit – zur Startseite">
-        <svg class="nav__logo-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-          <path d="M17 3 L17 20 L5 20 Z" fill="currentColor"/>
-          <path d="M19 7 L19 20 L28 20 Z" fill="currentColor" opacity=".65"/>
-          <path d="M3 23 Q8 27 13 23 T23 23 T33 23 L31 27 Q26 31 21 27 T11 27 T1 27 Z" fill="currentColor" opacity=".35" transform="translate(-1 -1)"/>
-        </svg>
-        <span>Segel <strong>Freiheit</strong></span>
-      </a>
+<!-- ===== Navbar ===== -->
+<header class="navbar">
+  <nav class="nav-inner" aria-label="Hauptnavigation">
+    <a class="logo" href="#top">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1b9aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 2v14M12 2l7 12H12M12 2L5 14h7"/>
+        <path d="M3 18c2 2 4 2 6 0s4-2 6 0 4 2 6 0"/>
+      </svg>
+      Segelwind
+    </a>
+    <ul class="nav-links">
+      <li><a href="#reviere">Segelreviere</a></li>
+      <li><a href="#ausruestung">Ausrüstung</a></li>
+      <li><a href="#tipps">Tipps</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="mobileMenu" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#reviere">Segelreviere</a>
+    <a href="#ausruestung">Ausrüstung</a>
+    <a href="#tipps">Tipps</a>
+    <a href="#kontakt">Kontakt</a>
+  </div>
+</header>
 
-      <button class="nav__toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Menü öffnen">
-        <span class="nav__toggle-bar"></span>
-        <span class="nav__toggle-bar"></span>
-        <span class="nav__toggle-bar"></span>
-      </button>
+<!-- ===== Hero ===== -->
+<section class="hero" id="top">
+  <div class="hero-content">
+    <span class="hero-kicker">Törn · Regatta · Blauwasser</span>
+    <h1>Freiheit auf dem Wasser</h1>
+    <p>Spüre den Wind in den Segeln, die Gischt im Gesicht und das Gefühl, wenn der Hafen hinter dir versinkt. Dein Abenteuer beginnt hier.</p>
+    <a class="btn btn-primary" href="#reviere">Jetzt Kurs aufnehmen</a>
+  </div>
+  <div class="hero-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+      <path d="M0,60 C240,110 480,10 720,50 C960,90 1200,30 1440,60 L1440,100 L0,100 Z" fill="#ffffff"/>
+    </svg>
+  </div>
+</section>
 
-      <ul class="nav__menu" id="nav-menu">
-        <li><a href="#start" class="nav__link">Start</a></li>
-        <li><a href="#reviere" class="nav__link">Segelreviere</a></li>
-        <li><a href="#ausruestung" class="nav__link">Ausrüstung</a></li>
-        <li><a href="#tipps" class="nav__link">Tipps</a></li>
-        <li><a href="#kontakt" class="btn btn--small nav__cta">Kontakt</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main>
-
-    <!-- ============ HERO ============ -->
-    <section class="hero" id="start">
-      <div class="hero__bg" aria-hidden="true">
-        <svg class="hero__boat" viewBox="0 0 220 160" preserveAspectRatio="xMidYMax meet" focusable="false">
-          <!-- Großsegel -->
-          <path d="M108 8 L108 108 L34 108 Z" fill="#ffffff" opacity=".95"/>
-          <!-- Vorsegel -->
-          <path d="M116 26 L116 108 L184 108 Z" fill="#ffffff" opacity=".75"/>
-          <!-- Mast -->
-          <rect x="109" y="4" width="3" height="112" rx="1.5" fill="#eaf6fb"/>
-          <!-- Rumpf -->
-          <path d="M22 112 L196 112 L178 138 L46 138 Z" fill="#0b3d5c"/>
-          <path d="M22 112 L196 112 L190 122 L28 122 Z" fill="#ffb454"/>
-          <!-- Flagge -->
-          <path d="M112 5 L132 10 L112 16 Z" fill="#ffb454"/>
-        </svg>
-        <div class="hero__waves">
-          <svg viewBox="0 0 1440 120" preserveAspectRatio="none" focusable="false">
-            <path class="wave wave--1" d="M0,60 C240,110 480,10 720,60 C960,110 1200,10 1440,60 L1440,120 L0,120 Z"/>
-            <path class="wave wave--2" d="M0,80 C260,30 520,120 780,75 C1040,30 1240,115 1440,70 L1440,120 L0,120 Z"/>
-            <path class="wave wave--3" d="M0,95 C300,60 600,125 900,90 C1140,62 1300,110 1440,90 L1440,120 L0,120 Z"/>
+<!-- ===== Segelreviere ===== -->
+<section id="reviere" class="alt">
+  <div class="container">
+    <div class="section-head">
+      <h2>Traumhafte Segelreviere</h2>
+      <p>Von heimischen Gewässern bis zu tropischen Inseln — drei Reviere, die jeder Segler einmal erlebt haben sollte.</p>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <div class="card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0e6ba8" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M2 17c2 2 4 2 6 0s4-2 6 0 4 2 6 0"/>
+            <path d="M12 3v11M12 3l6 9H12M12 3L6 12h6"/>
           </svg>
         </div>
-      </div>
-
-      <div class="hero__content container">
-        <p class="hero__eyebrow">Segeln · Entdecken · Ankommen</p>
-        <h1 class="hero__title">Freiheit auf dem Wasser</h1>
-        <p class="hero__subtitle">
-          Spüre den Wind in den Segeln und das Salz auf der Haut. Wir zeigen dir die
-          schönsten Revier­e, die richtige Ausrüstung und die besten Tipps für deinen
-          nächsten Törn.
-        </p>
-        <div class="hero__actions">
-          <a href="#reviere" class="btn btn--primary">Reviere entdecken</a>
-          <a href="#tipps" class="btn btn--ghost">Segel-Tipps ansehen</a>
+        <h3>Ostsee</h3>
+        <p>Flaches Revier, verlässliche Brisen und charmante Häfen von Flensburg bis Rügen. Perfekt für Einsteiger und Familientörns im Sommer.</p>
+        <span class="tag">Einsteigerfreundlich</span>
+      </article>
+      <article class="card">
+        <div class="card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0e6ba8" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18M3 12h18"/>
+          </svg>
         </div>
-      </div>
-    </section>
-
-    <!-- ============ SEGELREVIERE ============ -->
-    <section class="section" id="reviere">
-      <div class="container">
-        <header class="section__head">
-          <p class="section__eyebrow">Wohin der Wind dich trägt</p>
-          <h2 class="section__title">Beliebte Segelreviere</h2>
-          <p class="section__lead">
-            Von heimischen Küsten bis zu tropischen Inseln – diese drei Revier­e gehören
-            zu den schönsten Segelgebieten der Welt.
-          </p>
-        </header>
-
-        <div class="card-grid card-grid--3">
-          <article class="card revier-card">
-            <div class="card__media card__media--ostsee" role="img" aria-label="Illustration: Segelboot auf der Ostsee bei Sonnenaufgang">
-              <svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" focusable="false" aria-hidden="true">
-                <rect width="400" height="150" fill="#bfe3f2"/>
-                <circle cx="320" cy="55" r="34" fill="#ffd98a"/>
-                <rect y="150" width="400" height="90" fill="#2e7ea6"/>
-                <path d="M0 150 Q50 142 100 150 T200 150 T300 150 T400 150 L400 240 L0 240 Z" fill="#1f6486"/>
-                <path d="M195 60 L195 140 L130 140 Z" fill="#ffffff"/>
-                <path d="M203 75 L203 140 L262 140 Z" fill="#eef7fb"/>
-                <path d="M122 144 L270 144 L252 168 L142 168 Z" fill="#0b3d5c"/>
-              </svg>
-            </div>
-            <div class="card__body">
-              <h3 class="card__title">Ostsee</h3>
-              <p class="card__text">
-                Übersichtliche Revier­e, kurze Distanzen und charmante Häfen: Die Ostsee
-                ist ideal für Einsteiger und Familien. Von Kiel über Rügen bis zur
-                dänischen Südsee – hier findest du zuverlässige Winde und maritimes Flair.
-              </p>
-              <p class="card__meta">Beste Zeit: Mai – September</p>
-            </div>
-          </article>
-
-          <article class="card revier-card">
-            <div class="card__media card__media--mittelmeer" role="img" aria-label="Illustration: Segelyacht vor einer Mittelmeer-Küste">
-              <svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" focusable="false" aria-hidden="true">
-                <rect width="400" height="140" fill="#a8ddf0"/>
-                <path d="M0 140 L90 70 L170 140 Z" fill="#8fa98f" opacity=".8"/>
-                <path d="M120 140 L230 45 L340 140 Z" fill="#75927d" opacity=".85"/>
-                <rect y="140" width="400" height="100" fill="#1565a0"/>
-                <path d="M0 140 Q60 132 120 140 T240 140 T360 140 T480 140 L400 240 L0 240 Z" fill="#0e4f80"/>
-                <path d="M200 55 L200 130 L142 130 Z" fill="#ffffff"/>
-                <path d="M208 68 L208 130 L258 130 Z" fill="#eef7fb"/>
-                <path d="M134 134 L266 134 L250 156 L152 156 Z" fill="#7a2d1e"/>
-              </svg>
-            </div>
-            <div class="card__body">
-              <h3 class="card__title">Mittelmeer</h3>
-              <p class="card__text">
-                Kristallklares Wasser, antike Hafenstädte und Genuss an Bord: Ob
-                Kroatien, die griechischen Inseln oder die Côte d'Azur – das Mittelmeer
-                verbindet Segeln mit Kultur und Kulinarik.
-              </p>
-              <p class="card__meta">Beste Zeit: April – Oktober</p>
-            </div>
-          </article>
-
-          <article class="card revier-card">
-            <div class="card__media card__media--karibik" role="img" aria-label="Illustration: Katamaran in der Karibik mit Palmenstrand">
-              <svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" focusable="false" aria-hidden="true">
-                <rect width="400" height="130" fill="#9adbe8"/>
-                <circle cx="70" cy="45" r="30" fill="#ffe08a"/>
-                <path d="M330 130 Q335 80 360 62 Q345 95 350 130 Z" fill="#2e8b57"/>
-                <path d="M352 66 Q380 40 398 55 Q375 58 356 72 Z" fill="#3aa76d"/>
-                <path d="M352 66 Q330 40 308 52 Q332 56 350 72 Z" fill="#3aa76d"/>
-                <rect y="130" width="400" height="110" fill="#1aa3b8"/>
-                <path d="M0 130 Q70 122 140 130 T280 130 T420 130 L400 240 L0 240 Z" fill="#12879a"/>
-                <path d="M170 55 L170 118 L118 118 Z" fill="#ffffff"/>
-                <path d="M178 66 L178 118 L222 118 Z" fill="#eef7fb"/>
-                <rect x="112" y="122" width="116" height="14" rx="7" fill="#0b3d5c"/>
-              </svg>
-            </div>
-            <div class="card__body">
-              <h3 class="card__title">Karibik</h3>
-              <p class="card__text">
-                Passatwinde, türkisfarbenes Wasser und weiße Strände: Die Karibik ist das
-                Paradies für Charter­segler. Inselhüpfen zwischen den Grenadinen, Tauchen
-                in Korallenriffen und Sonnenuntergänge inklusive.
-              </p>
-              <p class="card__meta">Beste Zeit: Dezember – Mai</p>
-            </div>
-          </article>
+        <h3>Mittelmeer</h3>
+        <p>Kroatische Inselwelt, griechische Kykladen oder die Côte d'Azur: kristallklares Wasser, antike Hafenstädte und endlos lange Saison.</p>
+        <span class="tag">Klassiker</span>
+      </article>
+      <article class="card">
+        <div class="card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0e6ba8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="7" r="4"/>
+            <path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>
+          </svg>
         </div>
-      </div>
-    </section>
-
-    <!-- ============ AUSRÜSTUNG ============ -->
-    <section class="section section--alt" id="ausruestung">
-      <div class="container">
-        <header class="section__head">
-          <p class="section__eyebrow">Gut gerüstet an Bord</p>
-          <h2 class="section__title">Die wichtigste Segelausrüstung</h2>
-          <p class="section__lead">
-            Mit der richtigen Ausrüstung bist du auf jedem Törn sicher und komfortabel
-            unterwegs. Das gehört in jede Bordtasche:
-          </p>
-        </header>
-
-        <div class="card-grid card-grid--4">
-          <article class="card gear-card">
-            <div class="gear-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" focusable="false"><path d="M24 6 C16 6 11 12 11 20 L11 40 C11 42 13 44 15 44 L20 44 L20 34 C20 31 22 29 24 29 C26 29 28 31 28 34 L28 44 L33 44 C35 44 37 42 37 40 L37 20 C37 12 32 6 24 6 Z M24 14 C27 14 29 16 29 19 C29 22 27 24 24 24 C21 24 19 22 19 19 C19 16 21 14 24 14 Z" fill="currentColor"/></svg>
-            </div>
-            <h3 class="gear-card__title">Rettungsweste</h3>
-            <p class="card__text">Das wichtigste Sicherheitsstück an Bord. Automatikwesten mit mindestens 150&nbsp;N Auftrieb sind der Standard – immer tragen, sobald es unruhig wird.</p>
-          </article>
-
-          <article class="card gear-card">
-            <div class="gear-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" focusable="false"><path d="M17 8 L23 8 L23 18 L28 12 C31 9 36 10 38 14 C40 17 39 21 36 23 L30 28 L38 28 L38 40 C38 42 36 44 34 44 L16 44 C14 44 12 42 12 40 L12 18 C12 12 14 8 17 8 Z" fill="currentColor"/></svg>
-            </div>
-            <h3 class="gear-card__title">Segelhandschuhe</h3>
-            <p class="card__text">Schützen die Hände beim Trimmen und Hieven vor Scheuerstellen. Offene Fingerspitzen geben gleichzeitig Gefühl für Knoten und Klemmen.</p>
-          </article>
-
-          <article class="card gear-card">
-            <div class="gear-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" focusable="false"><path d="M24 8 C15 8 8 15 8 24 C8 33 15 40 24 40 C33 40 40 33 40 24 C40 15 33 8 24 8 Z M24 13 C30 13 35 18 35 24 C35 30 30 35 24 35 C18 35 13 30 13 24 C13 18 18 13 24 13 Z M24 19 C21 19 19 21 19 24 C19 27 21 29 24 29 C27 29 29 27 29 24 C29 21 27 19 24 19 Z" fill="currentColor"/><path d="M22 4 L26 4 L26 10 L22 10 Z M22 38 L26 38 L26 44 L22 44 Z M4 22 L10 22 L10 26 L4 26 Z M38 22 L44 22 L44 26 L38 26 Z" fill="currentColor"/></svg>
-            </div>
-            <h3 class="gear-card__title">Tauwerk</h3>
-            <p class="card__text">Festmacher, Schoten und Fallen in verschiedenen Längen. Eine Reserveleine an Bord hat schon so manchen Törn gerettet.</p>
-          </article>
-
-          <article class="card gear-card">
-            <div class="gear-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" focusable="false"><circle cx="24" cy="24" r="18" fill="none" stroke="currentColor" stroke-width="4"/><path d="M32 16 L27 27 L16 32 L21 21 Z" fill="currentColor"/></svg>
-            </div>
-            <h3 class="gear-card__title">Kompass</h3>
-            <p class="card__text">Auch im GPS-Zeitalter unverzichtbar: Der Magnetkompass funktioniert ohne Strom und ist dein verlässlicher Backup-Navigator.</p>
-          </article>
-
-          <article class="card gear-card">
-            <div class="gear-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" focusable="false"><path d="M24 6 L27 15 L38 12 L31 20 L40 24 L30 26 L33 38 L24 31 L15 38 L18 26 L8 24 L17 20 L10 12 L21 15 Z" fill="currentColor"/><rect x="21" y="30" width="6" height="12" fill="currentColor"/></svg>
-            </div>
-            <h3 class="gear-card__title">Wetterfeste Kleidung</h3>
-            <p class="card__text">Ölzeug, atmungsaktive Zwischenschichten und Segelschuhe mit heller Sohle. Auf dem Wasser ist es immer kälter als an Land.</p>
-          </article>
-
-          <article class="card gear-card">
-            <div class="gear-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" focusable="false"><path d="M14 8 L34 8 L38 14 L38 40 C38 42 36 44 34 44 L14 44 C12 44 10 42 10 40 L10 14 Z M16 14 L32 14 M16 22 L32 22 M16 30 L26 30" stroke="currentColor" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg>
-            </div>
-            <h3 class="gear-card__title">Seekarten &amp; Logbuch</h3>
-            <p class="card__text">Aktuelle Papierkarten des Reviers und ein Logbuch für Kurse, Positionen und Wetter – Dokumentation ist Pflicht und Nostalgie zugleich.</p>
-          </article>
-
-          <article class="card gear-card">
-            <div class="gear-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" focusable="false"><path d="M10 20 L24 8 L38 20 L38 40 C38 42 36 44 34 44 L14 44 C12 44 10 42 10 40 Z" fill="currentColor"/><rect x="20" y="28" width="8" height="16" fill="#fff" opacity=".85"/></svg>
-            </div>
-            <h3 class="gear-card__title">Messer &amp; Multitool</h3>
-            <p class="card__text">Ein scharfes Seglermesser am Gürtel kann im Ernstfall Leben retten – etwa wenn sich eine Leine im Propeller oder um den Fuß verheddert.</p>
-          </article>
-
-          <article class="card gear-card">
-            <div class="gear-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" focusable="false"><path d="M15 6 L33 6 L33 14 C33 20 29 24 26 25 L26 38 L32 38 L32 42 L16 42 L16 38 L22 38 L22 25 C19 24 15 20 15 14 Z" fill="currentColor"/></svg>
-            </div>
-            <h3 class="gear-card__title">Sonnenschutz</h3>
-            <p class="card__text">Sonnencreme mit hohem Lichtschutzfaktor, UV-Shirt, Kappe und polarisierte Sonnenbrille – die Reflexion des Wassers verdoppelt die Strahlung.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ TIPPS ============ -->
-    <section class="section" id="tipps">
-      <div class="container">
-        <header class="section__head">
-          <p class="section__eyebrow">Von Seeleuten gelernt</p>
-          <h2 class="section__title">Praktische Segel-Tipps</h2>
-          <p class="section__lead">
-            Vier bewährte Regeln, die jeder Segler kennen sollte – vom ersten Hafenmanöver
-            bis zum Langtörn.
-          </p>
-        </header>
-
-        <div class="card-grid card-grid--2">
-          <article class="card tip-card">
-            <span class="tip-card__number" aria-hidden="true">01</span>
-            <h3 class="card__title">Wetterbericht vor jedem Törn</h3>
-            <p class="card__text">
-              Checke Wind, Böen und Wetterentwicklung immer vor dem Ablegen – und halte
-              dich unterwegs über UKW oder Apps auf dem Laufenden. Bei Unsicherheit gilt:
-              Lieber einen Tag länger im Hafen bleiben.
-            </p>
-          </article>
-
-          <article class="card tip-card">
-            <span class="tip-card__number" aria-hidden="true">02</span>
-            <h3 class="card__title">Reffen, bevor es nötig wird</h3>
-            <p class="card__text">
-              „Denkst du ans Reffen, reffe!“ Diese alte Seemannsregel hat sich tausendfach
-              bewährt. Ein gerefft­es Boot segelt bei Starkwind sicherer, aufrechter und oft
-              sogar schneller.
-            </p>
-          </article>
-
-          <article class="card tip-card">
-            <span class="tip-card__number" aria-hidden="true">03</span>
-            <h3 class="card__title">Einhandregel beim Anlegen</h3>
-            <p class="card__text">
-              Lege mit so viel Fahrt an, wie du bereit bist zu bremsen – und nie mit einer
-              Hand zwischen Boot und Steg. Fender rechtzeitig ausbringen, Leinen klar
-              vorbereiten, Kommandos ruhig und deutlich geben.
-            </p>
-          </article>
-
-          <article class="card tip-card">
-            <span class="tip-card__number" aria-hidden="true">04</span>
-            <h3 class="card__title">Seeachtsamkeit: Rückversicherung</h3>
-            <p class="card__text">
-              Sag jemandem an Land Bescheid, wohin du segelst und wann du zurück sein
-              willst. Ein kurzer Fahrplan mit Bootsdaten kann im Notfall wertvolle Zeit
-              sparen – und beruhigt auch die Daheimgebliebenen.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ CALL TO ACTION ============ -->
-    <section class="cta" id="kontakt">
-      <div class="container cta__inner">
-        <h2 class="cta__title">Bereit, die Segel zu setzen?</h2>
-        <p class="cta__text">
-          Ob Anfängerkurs, Chartertörn oder Ausrüstungsberatung – schreib uns und wir
-          bringen dich mit vollem Wind auf Kurs.
-        </p>
-        <a href="mailto:ahoi@segel-freiheit.de" class="btn btn--light">Jetzt Kontakt aufnehmen</a>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ============ FOOTER ============ -->
-  <footer class="footer">
-    <div class="container footer__inner">
-      <div class="footer__brand">
-        <span class="footer__logo">Segel <strong>Freiheit</strong></span>
-        <p>Dein Kompass für unvergessliche Törns – von der Ostsee bis in die Karibik.</p>
-      </div>
-      <nav class="footer__nav" aria-label="Fußzeilen-Navigation">
-        <a href="#start">Start</a>
-        <a href="#reviere">Segelreviere</a>
-        <a href="#ausruestung">Ausrüstung</a>
-        <a href="#tipps">Tipps</a>
-        <a href="#kontakt">Kontakt</a>
-      </nav>
-      <p class="footer__copy">© <span id="footer-year">2026</span> Segel Freiheit. Alle Rechte vorbehalten. Ahoi!</p>
+        <h3>Karibik</h3>
+        <p>Beständige Passatwinde, türkisblaue Lagunen und Ankerbuchten wie aus dem Bilderbuch. Blauwasser-Feeling vom Feinsten.</p>
+        <span class="tag">Traumziel</span>
+      </article>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script src="script.js" defer></script>
+<!-- ===== Ausrüstung ===== -->
+<section id="ausruestung">
+  <div class="container">
+    <div class="section-head">
+      <h2>Die richtige Ausrüstung</h2>
+      <p>Gut gerüstet an Bord: Diese drei Bereiche entscheiden über Sicherheit und Komfort auf dem Wasser.</p>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <div class="card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0e6ba8" stroke-width="2" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 21L12 3l8 18c-3-2-5-3-8-3s-5 1-8 3z"/>
+          </svg>
+        </div>
+        <h3>Segel</h3>
+        <p>Großsegel, Fock und Gennaker — das richtige Profil und Material machen den Unterschied zwischen Pfuschen und Performen.</p>
+        <span class="tag">Antrieb</span>
+      </article>
+      <article class="card">
+        <div class="card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0e6ba8" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 20c8 0 16-8 16-16"/>
+            <path d="M4 20c0-8 8-16 16-16" opacity=".4"/>
+            <circle cx="4" cy="20" r="2"/>
+          </svg>
+        </div>
+        <h3>Tauwerk</h3>
+        <p>Schoten, Fallen und Stehendes Gut: Hochwertige Leinen und regelmäßige Kontrolle sind das Rückgrat jedes Rigs.</p>
+        <span class="tag">Rückgrat</span>
+      </article>
+      <article class="card">
+        <div class="card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0e6ba8" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M16 8l-3 5-5 3 3-5 5-3z"/>
+          </svg>
+        </div>
+        <h3>Navigation &amp; Sicherheit</h3>
+        <p>Seekarte, Kompass, Plotter und AIS — dazu Rettungswesten, Seenotsender und Funk. Sicherheit ist kein Zubehör.</p>
+        <span class="tag">Pflicht</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Tipps ===== -->
+<section id="tipps" class="alt">
+  <div class="container">
+    <div class="section-head">
+      <h2>Tipps für deinen Törn</h2>
+      <p>Drei goldene Regeln, die erfahrene Skipper nie missachten — egal ob Tagetörn oder Atlantiküberquerung.</p>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <div class="card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0e6ba8" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M17.5 18a4.5 4.5 0 0 0 0-9 6 6 0 0 0-11 1.5A3.5 3.5 0 0 0 7 17.5"/>
+          </svg>
+        </div>
+        <h3>Wetter checken</h3>
+        <p>Vor jedem Ablegen die aktuelle Vorhersage studieren: Windstärke, Böen, Fronten. Auf dem Wasser zählt keine App, sondern dein Blick nach oben.</p>
+        <span class="tag">Regel Nr. 1</span>
+      </article>
+      <article class="card">
+        <div class="card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0e6ba8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 20l-5-2V4l5 2 6-2 5 2v14l-5-2-6 2z"/>
+            <path d="M9 6v14M15 4v14"/>
+          </svg>
+        </div>
+        <h3>Kurs planen</h3>
+        <p>Route, Ausweichhäfen und Tagesetappen vorab festlegen. Ein guter Plan gibt dir Freiheit — ein schlechter nimmt sie dir.</p>
+        <span class="tag">Vorbereitung</span>
+      </article>
+      <article class="card">
+        <div class="card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0e6ba8" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M12 3a9 9 0 1 0 9 9"/>
+            <path d="M12 7v5l3 3"/>
+          </svg>
+        </div>
+        <h3>Manöver üben</h3>
+        <p>Wenden, Halsen, Mann-über-Bord: Übung macht den Skipper. Trainiere jedes Manöver bei ruhigen Bedingungen, bis es sitzt.</p>
+        <span class="tag">Routine</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta" id="kontakt">
+  <div class="container">
+    <h2>Bereit fürs Abenteuer?</h2>
+    <p>Leinen los! Sichere dir deinen Platz an Bord und erlebe deinen ersten Törn mit erfahrenen Skippers an deiner Seite.</p>
+    <a class="btn btn-outline" href="#top">Jetzt Platz an Bord sichern</a>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Segelwind — Mit Wind im Herzen. Alle Rechte vorbehalten.</p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var burger = document.getElementById("burger");
+  var menu = document.getElementById("mobileMenu");
+
+  burger.addEventListener("click", function(){
+    var open = menu.classList.toggle("open");
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+    burger.setAttribute("aria-label", open ? "Menü schließen" : "Menü öffnen");
+  });
+
+  // Menü nach Klick auf einen Link schließen
+  menu.querySelectorAll("a").forEach(function(link){
+    link.addEventListener("click", function(){
+      menu.classList.remove("open");
+      burger.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  // Smooth-Scroll-Fallback (falls scroll-behavior nicht greift, z. B. bei reduced motion)
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll('a[href^="#"]').forEach(function(link){
+    link.addEventListener("click", function(e){
+      var target = document.querySelector(link.getAttribute("href"));
+      if(target){
+        e.preventDefault();
+        target.scrollIntoView({behavior: reduced ? "auto" : "smooth"});
+      }
+    });
+  });
+})();
+</script>
 </body>
 </html>
